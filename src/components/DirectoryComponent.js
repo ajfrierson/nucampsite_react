@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 import CampsiteInfo from './campsiteInfoComponent';
 
-
+//Directory component with a method for changing the state of the campsites displayed
 class Directory extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +29,7 @@ class Directory extends Component {
     //     }
     //     return <div />;
     // }
-
+//Card component for the campsite images and names
     render(){
         const directory = this.props.campsites.map(campsite => {
             return(

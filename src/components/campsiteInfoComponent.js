@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-
+// Campsite component
 class CampsiteInfo extends Component {
     renderCampsite(campsite){
         return (
@@ -15,7 +15,7 @@ class CampsiteInfo extends Component {
             </div>
         );
     }
-
+//Method to render comments and date
     renderComments(comments){
         if(comments){
             return (
@@ -25,10 +25,10 @@ class CampsiteInfo extends Component {
                 </div>
             );
         } else {
-            return <div></div>
+            return <div />
         }
     }
-
+//The following code return comments and campsites to the DOM
     render(){
         if(this.props.campsite){
             return<div className="row">
@@ -36,7 +36,7 @@ class CampsiteInfo extends Component {
                 {this.renderComments(this.props.campsite.comments)}
             </div>
         } else {
-            return <div></div>
+            return <div />
         }
     }
 }

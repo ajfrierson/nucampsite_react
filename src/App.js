@@ -4,7 +4,7 @@ import Directory from './components/DirectoryComponent';
 import { CAMPSITES } from './shared/campsites';
 import './App.css';
 
-
+//Application component that renders the nav bar and directory of campsites
 class App extends Component {
     constructor(props){
         super(props);
