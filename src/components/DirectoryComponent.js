@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
-
+// Functional component for rendering a card that contains campsite picture and name
 function RenderDirectoryItem({campsite, onClick}){
     return (
         <Card onClick={() => onClick(campsite.id)}>  
