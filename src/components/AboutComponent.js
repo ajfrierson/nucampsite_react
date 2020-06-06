@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import {PARTNERS} from '../shared/partners';
 import { Link } from 'react-router-dom';
 
+// Presentational component for rendering partners
 function RenderPartner({partner}){
     if (partner){
         return (
@@ -24,7 +25,9 @@ function About(props) {
 
     const partners = PARTNERS.map(partner => {
         return (
-            <h5>{partner.name}</h5>
+            <Media tag="li" key={partner.id}>
+                <RenderPartner partner={partner}/>
+            </Media>
         );
     });
 
