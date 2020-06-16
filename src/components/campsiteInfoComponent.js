@@ -39,8 +39,10 @@ class CommentForm extends Component {
         });
     }
 
-    handleSubmit(event){
-        alert(`Author: ${event.target.value} Rating: ${event.target.value} Comment: ${this.event.value}`);
+    handleSubmit(values){
+        this.toggleModal();
+        console.log('Author: ' + (values.author) +" " + 'Comment: ' + (values.text));
+        alert('Author: ' + (values.author) +" " +"," + 'Comment: ' + (values.text)  +"," + 'Rating: ' + (values.rating));
     }
 
    render(){
@@ -49,7 +51,7 @@ class CommentForm extends Component {
          <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
-                        <LocalForm onSubmit={value => this.handleSubmit(value)}>
+                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
                             <div className="form-group ml-auto">
                             <Label md={4}>Rating</Label>
                                 <Control.select model=".rating" id="rating" name="rating">
@@ -83,7 +85,7 @@ class CommentForm extends Component {
                                 <Label md={8}>Comment</Label>
                                 <Control.textarea model=".text" id="text" name="text" />
                             </div>
-                            <Button onClick={this.handleSubmit} type="submit" value="submit" color="primary">Submit</Button>
+                            <Button type="submit" value="submit" color="primary">Submit</Button>
                         </LocalForm>
                     </ModalBody>
                 </Modal>
