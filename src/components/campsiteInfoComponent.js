@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardText, CardBody, BreadcrumbItem, Breadcrumb, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, BreadcrumbItem, Breadcrumb, Button, ModalHeader, Modal, ModalBody,
+Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Control, LocalForm, Errors } from "react-redux-form";
+
+const maxLength = len => val => !val || (val.length <= len);
+const minLength = len => val => val && (val.length >= len);
+
 
 //Functional Campsite component for rendering campsite information
 function RenderCampsite({campsite}){
@@ -17,12 +23,76 @@ function RenderCampsite({campsite}){
 }
 
 class CommentForm extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            isModalOpen: false,
+        }
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+
+    handleSubmit(event){
+        alert(`Author: ${event.target.value} Rating: ${event.target.value} Comment: ${this.event.value}`);
+    }
+
    render(){
        return (
-        <Button outline><i class="fa fa-pencil" aria-hidden="true"></i>Submit Comments</Button>
+        <React.Fragment>
+         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={value => this.handleSubmit(value)}>
+                            <div className="form-group ml-auto">
+                            <Label md={4}>Rating</Label>
+                                <Control.select model=".rating" id="rating" name="rating">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                            </div>
+                            <div className="form-group ml-auto">
+                                <Label htmlFor="author" md={8}>Your Name</Label>
+                                <Control.text model=".author" id="author" name="author"
+                                validators = {{
+                                    maxLength: maxLength(15),
+                                    minLength: minLength(2)
+                                }}
+                                />
+                                <Errors 
+                                    className="text-danger"
+                                    model='.author'
+                                    component = "div"
+                                    messages = {{
+                                        required: "Required",
+                                        minLength: "Must be at least 2 characters",
+                                        maxLength: "Must be 15 characters or less"
+                                    }}
+                                />
+                            </div>
+                            <div className="form-group ml-auto">
+                                <Label md={8}>Comment</Label>
+                                <Control.textarea model=".text" id="text" name="text" />
+                            </div>
+                            <Button onClick={this.handleSubmit} type="submit" value="submit" color="primary">Submit</Button>
+                        </LocalForm>
+                    </ModalBody>
+                </Modal>
+        <Button outline isOpen={this.state.isModalOpen} onClick={this.toggleModal}><i class="fa fa-pencil" aria-hidden="true"></i>{" "}Submit Comments</Button>
+       </React.Fragment> 
        );
    }
 }
+
 
 //Functional component to render comments and date
 function RenderComments({comments}){
