@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, CardImg, CardText, CardBody, BreadcrumbItem, Breadcrumb } from 'reactstrap';
+import React, { Component } from "react";
+import { Card, CardImg, CardText, CardBody, BreadcrumbItem, Breadcrumb, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 //Functional Campsite component for rendering campsite information
@@ -16,6 +16,14 @@ function RenderCampsite({campsite}){
     );
 }
 
+class CommentForm extends Component {
+   render(){
+       return (
+        <Button outline><i class="fa fa-pencil" aria-hidden="true"></i>Submit Comments</Button>
+       );
+   }
+}
+
 //Functional component to render comments and date
 function RenderComments({comments}){
     if(comments) {
@@ -30,6 +38,7 @@ function RenderComments({comments}){
                         </p>
                     </div>
                 )})}
+                <CommentForm />
             </div>
         );
     }
