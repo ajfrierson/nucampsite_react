@@ -2,6 +2,40 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import {PARTNERS} from '../shared/partners';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { Fade, Stagger } from 'react-animation-components';
+
+//Partner list components
+function PartnerList({isLoading, errMess}) {
+    const partners = PARTNERS.map(partner => {
+        return (
+            <Fade in key={partner.id}>
+                <Media tag="li" >
+                    <RenderPartner partner={partner}/>
+                </Media>
+            </Fade>
+        );
+    });
+
+    if(isLoading){
+        return <Loading />
+    }
+    if(errMess){
+        return (
+            <div className="col">
+                <h4>{errMess}</h4>
+            </div>
+        );
+    }
+    return (
+        <div className="col-mt-4">
+            <Stagger in>
+                <Media list >{partners}</Media> 
+            </Stagger>
+          
+        </div>
+    );
+}
 
 // Presentational component for rendering partners
 function RenderPartner({partner}){
@@ -22,14 +56,6 @@ function RenderPartner({partner}){
 }
 
 function About(props) {
-
-    const partners = PARTNERS.map(partner => {
-        return (
-            <Media tag="li" key={partner.id}>
-                <RenderPartner partner={partner}/>
-            </Media>
-        );
-    });
 
     return (
         <div className="container">
@@ -84,9 +110,7 @@ function About(props) {
                     <h3>Community Partners</h3>
                 </div>
                 <div className="col mt-4">
-                    <Media list>
-                        {partners}
-                    </Media>
+                    <PartnerList partners={props.partners} />
                 </div>
             </div>
         </div>
